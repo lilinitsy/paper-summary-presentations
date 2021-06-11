@@ -25,17 +25,17 @@ In this paper, the authors decided on a log-rectilinear transformation which pre
 
 Typically, a Log-polar transformation is used to emulate the falloff for the eye's visual perception. The authors argue that the sampling methods aruond the gaze position could end up undersampling as it may sample the same pixel multiple times, which can cause artifacting and flickering.
 
-![Alt Text](images/log-polar.png?raw=true)
+![Alt Text](images/log-polar.PNG?raw=true)
 
 The log-rectilinear transformation proposed provides rectangular transformations, which allows for constant-time filtering. It also gives a 1-1 mapping from the full-resolution video frame to the reduced resolution buffer. The exact fidelity decay they use is described in **Section 3.1** of the exact paper. They also do not sample directly from the image, since that, with foveation, can produce artifacts. Instead, they use a summed-area table to sample from. This lets them get the average sampled colour value with only four memory reads for each pixel -- if multiple GPU's were available, this could be done in parallel, potentially.
 
-![](images/log-polar2.png?raw=true)
+![](images/log-polar2.PNG?raw=true)
 
 The entire server pipeline works as follows: In the first stage, there is server-side video decoding. As is common, the video is converted from YCbCr to RGB (24 bits per pixel). They use FFmpeg for this, which can take advantage of hardware acceleration. In stage 2, the summed-area tables are computed, once again on the server. This is done per-image, and is done in an OpenCL kernel. In the third stage, the log-rectilinear buffer is generated. For 1080p images, it can be downsampled to 1072x608, as that has been found to be conformant to a ratio of at least 1.8 which is indistinguishable for users using a log-polar foveated VR implementation. This is again done using an OpenCL kernel. In the fourth stage, this is actually encoded.
 
 The client's pipeline is largely dependent on the server. First it will decode the packet that the server sent; this packet is the encoded log-rectilinear buffer. Then, on the GPU, it's converted into a full-resolution foveated video frame using bilinear interpolation.
 
-![](images/pipeline.png?raw=true)
+![](images/pipeline.PNG?raw=true)
 
 
 ## Measurements
@@ -44,16 +44,16 @@ The client's pipeline is largely dependent on the server. First it will decode t
 - Kernels were done in OpenCL rather than CUDA.
 
 We can see that the video quality of the log-rectilinear approach is superior to the traditional log-polar one -- even without the summed area tables (SAT's).
-![](images/bitrate-quality.png?raw=true)
+![](images/bitrate-quality.PNG?raw=true)
 
 
 The packets transmitted are also decently smaller than the log-polar packets when using the summed are tables. This is important for low-bandwidth systems.
-![](images/bitrate-packetsize.png?raw=true)
+![](images/bitrate-packetsize.PNG?raw=true)
 
 One thing to note is that the total time to process is higher than for other approaches (12.44ms or the SAT log-rectilinear vs 11.46ms, so about 1ms more -- which is not trivial).
 
 The log-rectilinear approach has less flickering than the log-polar implementation. 
-![](images/flicker.png?raw=true)
+![](images/flicker.PNG?raw=true)
 
 
 #### Micro-optimizing out those branch statements... Actually very important in GPU pipelines that don't have branch prediction / good brandh prediction!
