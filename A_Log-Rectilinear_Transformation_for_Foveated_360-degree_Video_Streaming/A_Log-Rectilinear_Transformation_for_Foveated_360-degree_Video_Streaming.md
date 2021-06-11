@@ -18,14 +18,14 @@ Most of the pixels in a 360 degre video are invisible, since your field of view 
 
 One solution is to use a "multiple resolution" approach. A video can be divided into multiple video tils, and each tile will be encoded at a different resolution - this is like doing foveated rendering. Then, the tiles can be streamed independently as their encoding finishes, and combined into one single video frame. However, if there aren't enough tiles, there can be tearing in the reconstructed frame, and perhaps even colours that don't match. Of course, more tiles means more tiles being streamed, and more being reconstructed, and so computational time can increase.
 
-![](images/foveated-tiles.png?raw=true)
+![Alt Text](images/foveated-tiles.png?raw=true)
 
 ## Paper's Solution
 In this paper, the authors decided on a log-rectilinear transformation which preserves the full resolution around the gaze position (where the eyes look), and implement a blur along the periphery.
 
 Typically, a Log-polar transformation is used to emulate the falloff for the eye's visual perception. The authors argue that the sampling methods aruond the gaze position could end up undersampling as it may sample the same pixel multiple times, which can cause artifacting and flickering.
 
-![](images/log-polar.png?raw=true)
+![Alt Text](images/log-polar.png?raw=true)
 
 The log-rectilinear transformation proposed provides rectangular transformations, which allows for constant-time filtering. It also gives a 1-1 mapping from the full-resolution video frame to the reduced resolution buffer. The exact fidelity decay they use is described in **Section 3.1** of the exact paper. They also do not sample directly from the image, since that, with foveation, can produce artifacts. Instead, they use a summed-area table to sample from. This lets them get the average sampled colour value with only four memory reads for each pixel -- if multiple GPU's were available, this could be done in parallel, potentially.
 
