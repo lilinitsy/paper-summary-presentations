@@ -18,7 +18,7 @@ Most of the pixels in a 360 degre video are invisible, since your field of view 
 
 One solution is to use a "multiple resolution" approach. A video can be divided into multiple video tils, and each tile will be encoded at a different resolution - this is like doing foveated rendering. Then, the tiles can be streamed independently as their encoding finishes, and combined into one single video frame. However, if there aren't enough tiles, there can be tearing in the reconstructed frame, and perhaps even colours that don't match. Of course, more tiles means more tiles being streamed, and more being reconstructed, and so computational time can increase.
 
-![Alt Text](images/foveated-tiles.png?raw=true)
+![Alt Text](images/foveated-tiles.PNG?raw=true)
 
 ## Paper's Solution
 In this paper, the authors decided on a log-rectilinear transformation which preserves the full resolution around the gaze position (where the eyes look), and implement a blur along the periphery.
