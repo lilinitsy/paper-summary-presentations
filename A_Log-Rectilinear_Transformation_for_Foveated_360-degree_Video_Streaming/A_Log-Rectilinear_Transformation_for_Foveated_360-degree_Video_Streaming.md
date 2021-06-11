@@ -8,7 +8,7 @@ In normal desktop rendering, the entire screen is rendered at as high of a resol
 
 Our eyes do not "render" every part of its vision with equal fidelity - our periphery is much harder to see in detail than what's in front of us, or what's in front of where our eyes are looking. The absence of periphery (tunnel vision) is very noticeable and a hinderance, so despite its lower level of detail, it is still important. But, since it won't appear at the same quality to our eyes as what our eyes focus on, it need not be rendered in such an equivalent quality. With **foveated rendering**, the render quality of the periphery will be lowered, while maintaining a high visual quality where the eyes are looking. 
 
-![](images/fov.jpg?raw=true)
+![Alt Text](images/fov.jpg?raw=true)
 
 #### Video Streaming
 YouTube, Twitch, and Netflix are examples of services that provide real-time video streaming. Improved visual quality can be streamed (480p, 720p, 1080, even 4k) for more crisp displaying pleasure at the price of increased bandwidth usage -- many modern internet connections won't support downloading 4k video streams without buffering, and this is for a flat screen, let alone for a 360 degree field of view.
