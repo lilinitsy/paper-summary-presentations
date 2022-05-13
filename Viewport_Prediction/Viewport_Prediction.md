@@ -27,6 +27,9 @@ This works based on past users. Viewing trajectory behaviour from past users on 
 
 A modified version of spectral clustering is used to cluster together trajectories. After clusters have been identified, a trend trajectory over all past users in a cluster is computed. They aim to predict the viewport very far into the future, like 5s+, based on independent predictions of roll, pitch, and yaw. In the interval [0; T_n], a trajectory is built for the new user. An affinity score is computed between the user trajectory and the trend trajectory for each cluster, for the same time window, and use the highest trend trajectory, R, and then use this to predict.
 
+## CUB360: Exploiting Cross-Users Behaviors for Viewport Prediction In 360 Video Adaptive Streaming
+This paper smartly brings up issues with other general viewport guiding methods: motion-based and content-based ones. Motion-based viewport guiding has an issue where accuracy drops off strongly after 2 seconds (the desire to predict so far into the future is perhaps unnecessary regardless; that's at least 120 frames that are being predicted), and content-based methods introduce bias since regions of interest can change across users. They use a kNN.
+
 
 # Neural Network Approaches
 
