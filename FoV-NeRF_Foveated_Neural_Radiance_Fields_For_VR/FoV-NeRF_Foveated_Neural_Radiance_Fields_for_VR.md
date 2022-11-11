@@ -81,3 +81,14 @@ LPIPS is a method to compare deep perceptual similarity. It uses deep neural net
 ![Alt Text](images/fov-nerf-fig7-3.png?raw=true)
 
 ![Alt Text](images/fov-nerf-fig7-4.png?raw=true)
+
+
+## Experiment 2
+The second experiment allows fre head and gaze motion using a 2AFC evaluation. Users could fully observe the full resolution G T VR video, and then foveated videos were generated using their NeRF technique. The same participants were used. The users can move their gaze in a trajectory, and each trajectory is counted as one trial and lasts around 2 seconds (or 100 frames... that's odd...). FovVideoVDP is used as an image metric for wide field of view image quality. The ventral matamers paper and Foveated Real-time rendering paper were used as comparisons... 
+
+FovVideoVDP has a visual similarity range from 0 to 10. Their approach gives M = 8.26, SD = 0.14, which is higher than the metamers (6.77m, 0.18s) and foveated-GT (7.99).  Some of the results were statistically significant.... They conclude that this analysis demonstrates superior performance in spatio-temporal visual quality under dynamic viewing. 
+
+## Performance
+The system runs at 31.8ms/frame without foveation; this is on a Xeon with a 3090. Adding in spatial and stereoscopic foveation gets them to around 50fps. It's unclear which method was used for the visual quality tests though.
+
+![Alt Text](images/fov-nerf-table2.png?raw=true)
